@@ -126,7 +126,7 @@ final class StatusItemController: NSObject, NSMenuDelegate, StatusItemControllin
         didSet {
             guard oldValue !== self.cloudSyncState else { return }
             self.observeCloudSyncChanges()
-            self.invalidateMenus(refreshOpenMenus: true)
+            self.refreshForCloudSyncChange()
         }
     }
 
@@ -349,7 +349,7 @@ final class StatusItemController: NSObject, NSMenuDelegate, StatusItemControllin
     }
 
     func menuBarMetricWindow(for provider: UsageProvider, snapshot: UsageSnapshot?, now: Date = Date()) -> RateWindow? {
-        if provider == .codex {
+        if provider == .codex, !self.menuBarUsageSource(for: provider).isFleet {
             return self.codexMenuBarMetricWindow(snapshot: snapshot, now: now)
         }
         return MenuBarMetricWindowResolver.rateWindow(

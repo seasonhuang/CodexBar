@@ -132,8 +132,8 @@ extension StatusItemController {
             .filter { $0.metric.kind == .hours && $0.metric != .runsOutIn }
         guard !predicates.isEmpty else { return [] }
 
-        let snapshot = self.store.menuBarSnapshot(for: provider.instanceID)
-        let windows = self.store.menuBarLayoutWindows(provider: provider, snapshot: snapshot, now: now)
+        let snapshot = self.menuBarUsageSource(for: provider).snapshot
+        let windows = self.menuBarLayoutWindows(provider: provider, snapshot: snapshot, now: now)
         let scopedWeekly = MenuBarLayoutSemanticWindowResolver
             .scopedWeeklyNamedWindow(snapshot: snapshot)?.window
         return predicates.compactMap { predicate -> TimeInterval? in
@@ -163,6 +163,7 @@ extension StatusItemController {
     }
 
     private func menuBarObservesCodexReset(providers: [UsageProvider]) -> Bool {
+        guard !self.menuBarUsageSource(for: .codex).isFleet else { return false }
         if providers.contains(.codex) {
             return true
         }
@@ -194,6 +195,7 @@ extension StatusItemController {
         -> [TimeInterval]
     {
         providers.compactMap { provider in
+            guard !self.menuBarUsageSource(for: provider).isFleet else { return nil }
             let resolution = self.renderedMenuBarLayoutResolution(for: provider)
             guard !resolution.usesLegacyRendering,
                   self.settings.menuBarIconStyle == .iconAndPercent
@@ -208,8 +210,8 @@ extension StatusItemController {
                 // eligibility wake-up.
                 || self.referencedConditionalMetrics(resolution: resolution).contains(.weeklyPace)
             guard showsWeeklyPace else { return nil }
-            let snapshot = self.store.menuBarSnapshot(for: provider.instanceID)
-            guard let window = self.store.menuBarLayoutWindows(
+            let snapshot = self.menuBarUsageSource(for: provider).snapshot
+            guard let window = self.menuBarLayoutWindows(
                 provider: provider,
                 snapshot: snapshot,
                 now: now).weekly
@@ -232,6 +234,7 @@ extension StatusItemController {
         now: Date)
         -> [TimeInterval]
     {
+        guard !self.menuBarUsageSource(for: provider).isFleet else { return [] }
         let metrics = self.referencedConditionalMetrics(resolution: resolution)
         let tokens = resolution.layout.flattenedTokens(conditionals: self.settings.menuBarLayoutConditionals)
         guard metrics.contains(where: \.isClockDerivedRate)
