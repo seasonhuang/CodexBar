@@ -38,6 +38,7 @@
 - Claude: show session forecasts on claude-swap account cards using separate usage histories for each email and workspace (#4566). Thanks @ViaxCo!
 - Widgets: include optional provider details in snapshot JSON so Claude Cloud credits retain their remaining balance, grant total, and expiry without changing quota rows (#4546). Thanks @djbclark!
 - Providers: add Munito today and this month's spend against the organization's spend limits through a bundled plugin, using an admin API key with Read account data permission (#4531). Thanks @dmartinw!
+- Gemini: add an explicit Gemini app source for browser-account 5-hour and weekly limits, separate from CLI and Antigravity quotas (#4535, #4533). Thanks @codertesla!
 
 ## 0.76.0 — 2026-10-15
 

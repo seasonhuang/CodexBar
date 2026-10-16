@@ -1802,6 +1802,9 @@
 "Gateway URL" = "Cổng URL";
 "Gemini CLI login is no longer supported" = "Đăng nhập Gemini CLI không còn được hỗ trợ";
 "Gemini CLI migration" = "Di chuyển Gemini CLI";
+"Gemini app" = "Gemini app";
+"Gemini CLI" = "Gemini CLI";
+"Gemini app limits use your browser account and are separate from Gemini CLI quotas." = "Gemini app limits use your browser account and are separate from Gemini CLI quotas.";
 "Generated locally by CodexBar · Data through %@" = "Được tạo cục bộ bởi CodexBar · Dữ liệu đến %@";
 "GitHub cookies" = "GitHub cookies";
 "GitHub does not publish this value. Enter it to show a usage bar. Applies to the selected GitHub account." = "GitHub không công bố giá trị này. Nhập nó để hiển thị một thanh sử dụng. Áp dụng cho tài khoản GitHub đã chọn.";
