@@ -109,5 +109,6 @@ public enum ProviderManifest {
         FloraProviderDescriptor.descriptor,
         ParallelProviderDescriptor.descriptor,
         ClaudePlatformProviderDescriptor.descriptor,
+        MunitoProviderDescriptor.descriptor,
     ]
 }

@@ -156,9 +156,10 @@ struct ProviderArchitectureGatekeeperTests {
             Self.hash(descriptor.branding.burnDownWidgetColor, into: &burnDownFingerprint)
         }
 
-        // fal, FLORA, Parallel, and Claude Platform extend the palette without changing existing provider colors.
-        #expect(widgetFingerprint == 9_322_051_552_041_008_511)
-        #expect(burnDownFingerprint == 6_428_902_102_265_645_629)
+        // fal, FLORA, Parallel, Claude Platform, and Munito extend the palette without
+        // changing existing provider colors.
+        #expect(widgetFingerprint == 13_461_952_870_655_211_217)
+        #expect(burnDownFingerprint == 307_739_061_117_232_367)
     }
 
     @Test

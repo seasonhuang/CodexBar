@@ -109,6 +109,7 @@ enum BurnProviderChoice: String, AppEnum {
     case flora
     case parallel
     case claudeplatform
+    case munito
 
     static let typeDisplayRepresentation = TypeDisplayRepresentation(name: "Provider")
 
@@ -220,6 +221,7 @@ enum BurnProviderChoice: String, AppEnum {
         .flora: DisplayRepresentation(title: "FLORA"),
         .parallel: DisplayRepresentation(title: "Parallel"),
         .claudeplatform: DisplayRepresentation(title: "Claude Platform"),
+        .munito: DisplayRepresentation(title: "Munito"),
     ]
 
     var provider: UsageProvider {
