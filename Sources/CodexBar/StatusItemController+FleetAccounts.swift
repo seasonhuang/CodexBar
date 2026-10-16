@@ -20,15 +20,6 @@ extension StatusItemController {
         }
     }
 
-    /// Remote snapshots can now drive the status item, so a fleet change must redraw icons as well as menus.
-    /// Cached render signatures are dropped because they only fingerprint this Mac's store state.
-    func refreshForCloudSyncChange() {
-        self.lastAppliedMergedIconRenderSignature = nil
-        self.lastAppliedProviderIconRenderSignatures.removeAll()
-        self.updateIcons()
-        self.invalidateMenus(refreshOpenMenus: true)
-    }
-
     /// Presentation-only source for the status item: this Mac's usage wins; otherwise the same freshest
     /// fleet snapshot the menu falls back to. Remote data is never written into `UsageStore`.
     func menuBarUsageSource(for provider: UsageProvider) -> MenuBarUsageSource {

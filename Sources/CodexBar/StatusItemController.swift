@@ -1012,6 +1012,15 @@ extension StatusItemController {
 #endif
 
 extension StatusItemController {
+    /// Fleet eligibility can create or remove provider items even when local refresh availability never changes.
+    func refreshForCloudSyncChange() {
+        self.lastAppliedMergedIconRenderSignature = nil
+        self.lastAppliedProviderIconRenderSignatures.removeAll()
+        self.updateVisibility()
+        self.updateIcons()
+        self.invalidateMenus(refreshOpenMenus: true)
+    }
+
     func legacyDefaultItemIndex(forNewProvider provider: UsageProvider) -> Int? {
         let visibleProviders = self.settings.orderedFirstPartyProviders().filter { self.isVisible($0) }
         guard let providerOffset = visibleProviders.firstIndex(of: provider) else { return nil }

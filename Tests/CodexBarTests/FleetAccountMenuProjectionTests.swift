@@ -289,43 +289,6 @@ struct FleetAccountMenuProjectionTests {
     }
 
     @Test
-    func `menu bar drops remote usage after device removal`() {
-        let remote = Self.snapshot(provider: .claude, accountKey: "remote", fetchedAt: Date(timeIntervalSince1970: 200))
-        #expect(Self.menuBarSource(snapshots: [remote]).isFleet)
-        #expect(Self.menuBarSource(snapshots: []).snapshot == nil)
-    }
-
-    @Test
-    func `menu bar follows changed remote percentages without publishing them as local usage`() {
-        let settings = testSettingsStore(suiteName: "FleetAccountMenuProjectionTests-menubar-no-echo")
-        let store = UsageStore(
-            fetcher: UsageFetcher(environment: [:]),
-            browserDetection: BrowserDetection(cacheTTL: 0),
-            settings: settings,
-            startupBehavior: .testing,
-            environmentBase: [:])
-        let remote = Self.snapshot(provider: .claude, accountKey: "remote", fetchedAt: Date(timeIntervalSince1970: 200))
-        let changed = AccountSnapshotSyncPayload(
-            provider: .claude,
-            deviceID: remote.deviceID,
-            accountKey: remote.accountKey,
-            fetchedAt: Date(timeIntervalSince1970: 300),
-            displayLabel: remote.displayLabel,
-            usage: UsageSnapshot(
-                primary: RateWindow(usedPercent: 80, windowMinutes: 300, resetsAt: nil, resetDescription: nil),
-                secondary: nil,
-                updatedAt: Date(timeIntervalSince1970: 300)))
-        let original = Self.menuBarSource(local: store.menuBarSnapshot(for: .claude), snapshots: [remote])
-        let refreshed = Self.menuBarSource(local: store.menuBarSnapshot(for: .claude), snapshots: [remote, changed])
-
-        #expect(original.snapshot?.primary?.usedPercent == 25)
-        #expect(refreshed.snapshot?.primary?.usedPercent == 80)
-        #expect(refreshed.fleetSnapshot?.fetchedAt == changed.fetchedAt)
-        #expect(store.snapshots.isEmpty)
-        #expect(store.cloudSyncAccountSnapshots().isEmpty)
-    }
-
-    @Test
     func `remote menu bar layout renders quota without local credits or history`() throws {
         let (_, store, controller) = Self.makeRemoteController(suffix: "remote-render")
         defer { controller.releaseStatusItemsForTesting() }
@@ -439,6 +402,65 @@ struct FleetAccountMenuProjectionTests {
         #expect(store.snapshots.isEmpty)
         #expect(store.cloudSyncAccountSnapshots().isEmpty)
         try Self.writeSyntheticFleetProof(button: button)
+    }
+
+    @Test
+    func `fleet backed credential gated provider is selected by the merged status item`() {
+        let (_, store, controller) = Self.makeRemoteController(suffix: "openrouter-merged", provider: .openrouter)
+        defer { controller.releaseStatusItemsForTesting() }
+        #expect(controller.shouldMergeIcons)
+        #expect(!store.isEnabled(.openrouter))
+        #expect(!store.enabledFirstPartyProvidersForBackgroundWork().contains(.openrouter))
+        #expect(controller.menuBarUsageSource(for: .openrouter).isFleet)
+        #expect(controller.primaryProviderForUnifiedIcon() == .openrouter)
+        controller.applyIcon(phase: nil)
+        #expect(controller.statusItem.button?.toolTip?.contains("OpenRouter") == true)
+    }
+
+    @Test
+    func `fleet backed credential gated provider gets a separate status item and is removed with its device`() throws {
+        let (settings, store, controller) = Self.makeRemoteController(
+            suffix: "openrouter-separate",
+            provider: .openrouter)
+        defer { controller.releaseStatusItemsForTesting() }
+        settings.mergeIcons = false
+        controller.handleProviderConfigChange(reason: "fleet-test-split")
+        #expect(!store.isEnabled(.openrouter))
+        #expect(controller.isVisible(.openrouter))
+        let item = try #require(controller.statusItems[.openrouter])
+        #expect(item.isVisible)
+        #expect(item.menu != nil)
+        #expect(item.button?.toolTip?.contains("iCloud") == true)
+        let device = "remote-device"
+        controller.cloudSyncState.fleetDevices["device-\(device)"] = DeviceSyncPayload(
+            deviceID: device, hostName: "Studio", model: "Mac15,14", appVersion: "0.76.0", lastSeen: Date())
+        let records = controller.cloudSyncState.recordNames(
+            removing: device, currentDeviceID: settings.iCloudSyncDeviceID)
+        controller.cloudSyncState.removeRecords(records)
+        controller.refreshForCloudSyncChange()
+        #expect(!controller.isVisible(.openrouter))
+        #expect(controller.statusItems[.openrouter] == nil)
+        #expect(!store.enabledFirstPartyProvidersForBackgroundWork().contains(.openrouter))
+    }
+
+    @Test
+    func `late fleet arrival creates a status item but disabled providers stay disabled`() throws {
+        let (settings, store, controller) = Self.makeRemoteController(suffix: "openrouter-late", provider: .openrouter)
+        defer { controller.releaseStatusItemsForTesting() }
+        settings.mergeIcons = false
+        let remote = try #require(controller.menuBarUsageSource(for: .openrouter).fleetSnapshot)
+        controller.cloudSyncState.fleetSnapshots.removeAll()
+        controller.handleProviderConfigChange(reason: "fleet-test-before-arrival")
+        #expect(controller.statusItems[.openrouter] == nil)
+        controller.cloudSyncState.fleetSnapshots[remote.recordName] = remote
+        controller.refreshForCloudSyncChange()
+        #expect(controller.statusItems[.openrouter]?.isVisible == true)
+        let metadata = try #require(ProviderRegistry.shared.metadata[.openrouter])
+        settings.setProviderEnabled(provider: .openrouter, metadata: metadata, enabled: false)
+        controller.handleProviderConfigChange(reason: "fleet-test-disabled")
+        #expect(!controller.isVisible(.openrouter))
+        #expect(controller.statusItems[.openrouter] == nil)
+        #expect(!store.isEnabled(.openrouter))
     }
 
     /// Opt-in developer proof of the actual rendered status-item content, not a live CloudKit screenshot.

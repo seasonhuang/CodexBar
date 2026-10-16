@@ -1334,7 +1334,7 @@ extension StatusItemController {
             }
             // A nonempty Overview selection remains authoritative while its providers are loading,
             // unrankable, or exhausted. Only an explicitly empty Overview may use the broad fallback.
-            if let fallback = overviewProviders.first(where: { self.store.isEnabled($0) }) {
+            if let fallback = overviewProviders.first(where: self.isEnabled) {
                 return fallback
             }
         }
@@ -1343,24 +1343,21 @@ extension StatusItemController {
             let overviewProviders = self.settings.resolvedMergedOverviewProviders(
                 activeProviders: self.overviewProviderIDs(enabledProviders: enabledProviders),
                 maxVisibleProviders: SettingsStore.mergedOverviewProviderLimit).compactMap(\.firstPartyProvider)
-            if let provider = overviewProviders.first(where: { self.store.isEnabled($0) }) {
+            if let provider = overviewProviders.first(where: self.isEnabled) {
                 return provider
             }
         }
         if self.shouldMergeIcons,
            let selected = self.selectedMenuProvider?.firstPartyProvider,
-           self.store.isEnabled(selected)
+           self.isEnabled(selected)
         {
             return selected
         }
-        for provider in self.store.enabledFirstPartyProviders() {
-            if self.store.isEnabled(provider), self.menuBarUsageSource(for: provider).snapshot != nil {
-                return provider
-            }
+        for provider in self.menuBarEligibleProviders() where self.menuBarUsageSource(for: provider).snapshot != nil {
+            return provider
         }
-        // Use availability-filtered list: fallback must pick a provider that can
-        // actually animate, otherwise shouldAnimate() fails on credential-less providers.
-        if let enabled = self.store.enabledFirstPartyProviders().first {
+        // A provider may be display-ready from iCloud without being eligible for local refresh.
+        if let enabled = self.menuBarEligibleProviders().first {
             return enabled
         }
         // Provider-specific by design: Codex remains the placeholder icon when no provider can animate.
