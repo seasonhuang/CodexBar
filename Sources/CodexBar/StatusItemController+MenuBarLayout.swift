@@ -9,6 +9,7 @@ struct MenuBarLayoutWindows {
     let session: RateWindow?
     let weekly: RateWindow?
     let automatic: RateWindow?
+    let spend: RateWindow?
 
     func resetWindow(_ selection: PercentWindow, snapshot: UsageSnapshot?) -> RateWindow? {
         let window: RateWindow? = switch selection {
@@ -16,6 +17,7 @@ struct MenuBarLayoutWindows {
         case .weekly: self.weekly
         case .automatic: self.automatic
         case .scopedWeekly: MenuBarLayoutSemanticWindowResolver.scopedWeeklyNamedWindow(snapshot: snapshot)?.window
+        case .spend: self.spend
         }
         return window?.isSyntheticPlaceholder == true ? nil : window
     }
@@ -368,6 +370,8 @@ extension UsageStore {
             surface: .menuBar,
             snapshotOverride: snapshot,
             now: now)?.credits?.snapshot : nil
+        let spend = includeLocalDerivedData
+            ? self.menuBarLayoutSpend(provider: provider, snapshot: snapshot, now: now) : .unavailable
         let providerName = L(self.metadata(for: provider).displayName)
         let automatic = MenuBarLayoutRenderWindow(windows.automatic)
 
@@ -439,7 +443,15 @@ extension UsageStore {
                 balanceRemainingUSD: balanceAmounts.remaining,
                 balanceUsedUSD: balanceAmounts.used,
                 costTodayUSD: costs.todayUSD,
-                cost30dUSD: costs.last30DaysUSD))
+                cost30dUSD: costs.last30DaysUSD,
+                spendPaceDelta: spend.paceDelta,
+                spendUsedUSD: spend.usedUSD,
+                spendRemainingUSD: spend.remainingUSD),
+            spend: MenuBarLayoutRenderWindow(spend.window),
+            spendPace: spend.pace,
+            spendAmount: spend.amount,
+            spendBudget: spend.budget,
+            spendCurrencySymbol: spend.currencySymbol)
     }
 
     func menuBarLayoutWindows(
@@ -449,6 +461,7 @@ extension UsageStore {
         now: Date)
         -> MenuBarLayoutWindows
     {
+        let spend = includeLocalDerivedData ? self.spendLimit(for: provider, snapshot: snapshot, now: now)?.window : nil
         if includeLocalDerivedData, provider == .codex,
            let projection = self.codexConsumerProjectionIfNeeded(
                for: provider,
@@ -465,7 +478,8 @@ extension UsageStore {
                 tertiary: snapshot?.tertiary,
                 session: session,
                 weekly: weekly,
-                automatic: automatic)
+                automatic: automatic,
+                spend: spend)
         }
 
         let semanticWindows = MenuBarLayoutSemanticWindowResolver.windows(
@@ -491,6 +505,7 @@ extension UsageStore {
             automatic: MenuBarLayoutAutomaticWindowDisplayNormalizer.normalized(
                 provider: provider,
                 snapshot: snapshot,
-                window: automatic))
+                window: automatic),
+            spend: spend)
     }
 }
