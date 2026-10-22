@@ -193,7 +193,8 @@ extension StatusItemController {
             colorPace: self.settings.menuBarColorPace,
             colorByProvider: self.settings.menuBarColorByProvider,
             forceStackedStyle: forceStackedStyle,
-            monospacedDigits: self.settings.menuBarLayoutMonospacedDigits)
+            monospacedDigits: self.settings.menuBarLayoutMonospacedDigits,
+            showWindowLabels: self.settings.menuBarLayoutShowWindowLabels)
     }
 
     func menuBarLayoutRenderData(
@@ -380,7 +381,7 @@ extension UsageStore {
             quotaIsEstimated: snapshot?.dataConfidence == .estimated,
             iconKey: iconKey,
             providerName: providerName,
-            accountLabel: accountLabel,
+            accountLabel: includeLocalDerivedData ? accountLabel : nil,
             laneLabels: MenuBarLayoutLaneLabels(provider: provider, snapshot: snapshot),
             primary: MenuBarLayoutRenderWindow(windows.primary),
             secondary: MenuBarLayoutRenderWindow(windows.secondary),

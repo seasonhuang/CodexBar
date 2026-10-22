@@ -24,17 +24,13 @@ extension StatusItemController {
     /// fleet snapshot the menu falls back to. Remote data is never written into `UsageStore`.
     func menuBarUsageSource(for provider: UsageProvider) -> MenuBarUsageSource {
         let localSnapshot = self.store.menuBarSnapshot(for: provider.instanceID)
-        guard localSnapshot == nil else { return .local(localSnapshot) }
+        guard localSnapshot == nil,
+              self.settings.isProviderEnabledCached(provider: provider, metadataByProvider: self.store.providerMetadata)
+        else { return .local(localSnapshot) }
         // Match the menu's local-account authority, including inactive token/swap snapshots.
-        let fallback = self.fleetAccountProjection(for: provider).fallback
         return MenuBarUsageSource.resolve(
-            provider: provider,
             localSnapshot: nil,
-            fleetSnapshots: fallback.map { [$0] } ?? [],
-            currentDeviceID: self.settings.iCloudSyncDeviceID,
-            fleetEnabled: self.settings.iCloudSyncEnabled
-                && self.settings.iCloudSyncSnapshotsEnabled
-                && self.settings.iCloudSyncShowFleetAccounts)
+            fleetFallback: self.fleetAccountProjection(for: provider).fallback)
     }
 
     /// `store.isStale` reports this Mac's fetch failures, not a remote account's state. Fleet usage is
@@ -48,19 +44,19 @@ extension StatusItemController {
             && self.store.refreshingProviders.contains(provider.instanceID)
     }
 
-    func menuBarFleetToolTip(for provider: UsageProvider) -> String? {
+    func menuBarFleetSourceDescription(for provider: UsageProvider) -> String? {
         guard let snapshot = self.menuBarUsageSource(for: provider).fleetSnapshot else { return nil }
         let deviceName = self.settings.hidePersonalInfo ? L("another Mac") : self.cloudSyncState.fleetDevices.values
             .first(where: { $0.deviceID == snapshot.deviceID })?.hostName ?? L("another Mac")
-        let timestamp = snapshot.fetchedAt.formatted(date: .abbreviated, time: .standard)
-        return "\(L(self.store.metadata(for: provider).displayName)) · iCloud · via \(deviceName) · \(timestamp)"
+        let timestamp = snapshot.fetchedAt.formatted(Date.FormatStyle(date: .abbreviated, time: .standard)
+            .locale(codexBarLocalizedResourceLocale()))
+        return [L(self.store.metadata(for: provider).displayName), L("iCloud Sync"), deviceName, timestamp]
+            .joined(separator: " · ")
     }
 
     func updateMenuBarSourceDescription(for button: NSButton, providers: [UsageProvider]) {
-        let descriptions = providers.compactMap { self.menuBarFleetToolTip(for: $0) }
+        let descriptions = providers.compactMap { self.menuBarFleetSourceDescription(for: $0) }
         let description = descriptions.isEmpty ? nil : descriptions.joined(separator: "\n")
-        guard button.toolTip != description else { return }
-        button.toolTip = description
         button.setAccessibilityHelp(description)
     }
 

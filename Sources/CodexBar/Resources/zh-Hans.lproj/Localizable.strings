@@ -63,6 +63,16 @@
 "90d" = "90 天";
 "A managed Codex login is already running. Wait for it to finish before adding " = "托管 Codex 登录已在运行。请等待其完成后再添加 ";
 "API key" = "API 密钥";
+
+/* Future AGI provider */
+"Secret key" = "密钥";
+"Required with the API key. Saved in the local config file. Or set FI_SECRET_KEY." = "需与 API 密钥配合使用。保存在本地配置文件中。也可设置 FI_SECRET_KEY。";
+"Paste secret key…" = "粘贴密钥…";
+"AI credits" = "AI 额度";
+"Gateway requests" = "网关请求";
+"Future AGI cost history is not available." = "无法查看 Future AGI 的费用历史。";
+"Saved in CodexBar's local config file. Or set FI_API_KEY." = "保存在 CodexBar 的本地配置文件中。也可设置 FI_API_KEY。";
+
 "API key limit" = "API 密钥限制";
 "API region" = "API 区域";
 "API token" = "API 令牌";
@@ -588,7 +598,6 @@
 "automatic" = "自动";
 "primary_api_key_limit" = "主要（API 密钥限制）";
 "menu_bar_style_title" = "菜单栏样式";
-"menu_bar_style_subtitle" = "菜单栏项目的绘制方式。";
 "menu_bar_inactive_display_contrast_title" = "提高非活跃显示器上的可见性";
 "menu_bar_inactive_display_contrast_subtitle" = "使用高对比度绘制，让其他显示器上的图标和指标仍清晰可读。";
 "menu_bar_style_critters" = "小动物";
@@ -635,6 +644,8 @@
 "overview_rows_follow_order" = "概览行始终遵循提供商顺序。";
 "overview_no_providers_selected" = "未选择提供商";
 "agent_sessions_title" = "智能体会话";
+"agent_sessions_remote_title" = "远程会话（Tailscale / SSH）";
+"agent_sessions_remote_subtitle" = "发现并连接远程主机。关闭后仅监控此 Mac。";
 "agent_sessions_subtitle" = "在菜单中显示本地及通过 SSH 发现的 Codex 和 Claude Code 会话。";
 "agent_sessions_hosts_title" = "其他 SSH 主机";
 "agent_sessions_footer" = "系统会自动发现 tailnet 上的 Mac。本地会话每 30 秒刷新一次；远程主机每 60 秒以及打开菜单时刷新。";
@@ -1188,6 +1199,7 @@
 "Password" = "密码";
 "%@ authentication is disabled." = "%@ 认证已禁用。";
 "%@ cookies are disabled." = "%@ Cookie 已禁用。";
+"%@ is unavailable. Edit the widget to choose a provider." = "%@ 不可用。编辑小组件以选择提供商。";
 "%@ web API access is disabled." = "%@ Web API 访问已禁用。";
 "Disable %@ dashboard cookie usage." = "禁用 %@ 仪表盘 Cookie 用法。";
 "Keychain access is disabled in Advanced, so browser cookie import is unavailable." = "高级设置中已禁用钥匙串访问，因此无法导入浏览器 Cookie。";
@@ -1404,6 +1416,7 @@
 /* Menu bar layout editor */
 "menu_bar_layout_title" = "布局";
 "menu_bar_layout_footer" = "拖动项目以排列菜单栏。点按项目可追加；选择已放置的项目并按 Delete 键可将其移除。";
+"menu_bar_layout_footer_requires_icon_and_percent" = "布局仅适用于“%@”菜单栏样式。请在上方选择该样式以进行编辑。";
 "menu_bar_layout_group_identity" = "身份";
 "menu_bar_layout_group_usage" = "用量";
 "menu_bar_layout_group_time" = "时间";
@@ -1436,6 +1449,7 @@
 "menu_bar_layout_size_regular" = "常规";
 "menu_bar_layout_size_large" = "大";
 "menu_bar_layout_monospaced_digits" = "等宽数字";
+"menu_bar_layout_show_window_labels" = "显示时段标签";
 "menu_bar_layout_gap" = "间距";
 "menu_bar_layout_gap_tight" = "紧凑";
 "menu_bar_layout_gap_regular" = "常规";
@@ -1795,6 +1809,7 @@
 "Details for %@" = "%@ 的详细信息";
 "EST. %@" = "预计 %@";
 "Enable Antigravity provider" = "启用 Antigravity 提供程序";
+"Enable a provider in CodexBar → Settings → Providers." = "在 CodexBar → 设置 → 提供商中启用一个提供商。";
 "Enable account widgets in CodexBar → Settings → Menu → Widgets. Then edit this widget to choose an account." = "在 CodexBar → 设置 → 菜单 → 小部件中启用帐户小部件。然后编辑此小部件以选择一个帐户。";
 "Error: %@" = "错误：%@";
 "Examples: alt+cmd+2, shift+right. Refresh (cmd+r), Settings (cmd+,) and Quit (cmd+q) are reserved." = "示例：alt+cmd+2、shift+right。刷新（cmd+r）、设置（cmd+,）和退出（cmd+q）被保留。";
@@ -1809,6 +1824,9 @@
 "Gateway URL" = "网关URL";
 "Gemini CLI login is no longer supported" = "Gemini CLI 不再支持登录";
 "Gemini CLI migration" = "Gemini CLI 迁移";
+"Gemini app" = "Gemini 应用";
+"Gemini CLI" = "Gemini CLI";
+"Gemini app limits use your browser account and are separate from Gemini CLI quotas." = "Gemini 应用的限额适用于你在浏览器中登录的账户，与 Gemini CLI 配额相互独立。";
 "Generated locally by CodexBar · Data through %@" = "由 CodexBar 本地生成 · 数据截至 %@";
 "GitHub cookies" = "GitHub Cookie";
 "GitHub does not publish this value. Enter it to show a usage bar. Applies to the selected GitHub account." = "GitHub 不公布该值。输入它以显示使用栏。适用于选定的 GitHub 账户。";
@@ -1910,6 +1928,7 @@
 "Paste the Cookie header from a billing-page request. It must contain sessionid." = "粘贴账单页面请求中的 Cookie 请求头，其中必须包含 sessionid。";
 "Paste z.ai / GLM API key…" = "粘贴 z.ai / GLM API 密钥…";
 "Path to the cswap executable (github.com/realiti4/claude-swap)." = "cswap 可执行文件的路径 (github.com/realiti4/claude-swap)。";
+"Path to the tcr executable (github.com/dhkts1/teamclaude-rs)." = "tcr 可执行文件的路径 (github.com/dhkts1/teamclaude-rs)。";
 "Peak %@" = "峰值%@";
 "Percent left" = "剩余百分比";
 "Pick another Codex account before importing OpenAI cookies." = "在导入 OpenAI cookies 之前选择另一个 Codex 帐户。";
@@ -1963,6 +1982,8 @@
 "Select the provider to display." = "选择要显示的提供商。";
 "Session (5-hour)" = "五小时配额";
 "Session and weekly usage with credits and costs." = "显示会话及每周用量、额度和费用。";
+"Set the cswap executable path below." = "请在下方设置 cswap 可执行文件的路径。";
+"Set the tcr executable path below." = "请在下方设置 tcr 可执行文件的路径。";
 "Settings unavailable." = "设置不可用。";
 "Show account card when only one account is available" = "只有一个账户可用时显示账户卡";
 "Show model-specific weekly usage in widgets" = "在小组件中显示各模型的每周用量";
@@ -1970,6 +1991,7 @@
 "Shows model-specific Claude quotas, such as Fable, in desktop widgets." = "在桌面小组件中显示各 Claude 模型的配额，例如 Fable。";
 "Shows the hidden accounts" = "显示隐藏帐户";
 "Shows usage and lets you switch accounts through `cswap`. Credentials stay managed by claude-swap; CodexBar never reads them." = "显示用量，并通过 `cswap` 切换账户。凭据由 claude-swap 管理，CodexBar 不会读取。";
+"Shows usage from `tcr`; it does not switch accounts, because tcr picks the account for each request. Credentials stay managed by tcr; CodexBar never reads them." = "显示来自 `tcr` 的用量；不会切换账户，因为 tcr 会为每个请求选择账户。凭据由 tcr 管理，CodexBar 不会读取。";
 "Stay Awake" = "保持唤醒";
 "Stored in the CodexBar config file. Reads monthly budget and routed usage from /v1/usage." = "存储在 CodexBar 配置文件中。从 /v1/usage 读取每月预算和路由使用情况。";
 "Stored in ~/.codexbar/config.json. OPENAI_ADMIN_KEY is required for organization usage; legacy/user keys only get a best-effort balance fallback." = "保存在 ~/.codexbar/config.json 中。查看组织用量需要 OPENAI_ADMIN_KEY；旧版或用户密钥仅能尝试获取余额。";
@@ -1978,6 +2000,7 @@
 "SuperGrok OAuth" = "SuperGrok OAuth";
 "Switch Account…" = "切换帐户...";
 "Switch Claude Code account" = "切换Claude Code账号";
+"Claude accounts in tcr" = "tcr 中的 Claude 账户";
 "Switch Claude Code to %@" = "将 Claude Code 切换到 %@";
 "Switch Provider" = "切换提供商";
 "Switch the provider shown in the widget." = "切换小部件中显示的提供程序。";
@@ -1998,10 +2021,7 @@
 "Top models:" = "最常用模型：";
 "Two quota burn-down charts in one tile." = "一张图块中包含两个 配额 燃尽图。";
 "Usage & spend come from your console.groq.com browser session automatically. An API key is optional and only adds Enterprise Prometheus metrics." = "使用情况和支出自动来自您的 console.groq.com 浏览器会话。 API 密钥是可选的，仅添加 Enterprise Prometheus 指标。";
-"Usage data appears after a refresh." = "刷新后会显示使用情况数据。";
-"Usage data will appear once the app refreshes." = "应用程序刷新后，将显示使用数据。";
 "Usage history chart with recent totals." = "使用历史记录图表以及最近的总计。";
-"Usage history will appear after a refresh." = "刷新后会出现使用历史记录。";
 "Usage limit" = "使用限制";
 "Usage limits and reset countdowns for one saved account." = "一个已保存帐户的使用限制和重置倒计时。";
 "Usage widget with a provider switcher." = "可切换提供商的用量小组件。";
@@ -2056,6 +2076,7 @@
 "sk-ant-admin..." = "sk-ant-admin...";
 "sk-or-v1-..." = "sk-or-v1-...";
 "spent" = "已耗尽";
+"tcr executable" = "tcr 可执行文件";
 "under pace" = "使用速度较慢";
 "us-east-1" = "us-east-1";
 "used" = "已用";
@@ -2066,6 +2087,7 @@
 "~%@ est" = "~%@ 估计";
 "~%@ tracked tokens (partial)" = "约 %@ 个已记录 token（部分数据）";
 "~/.local/bin/cswap" = "~/.local/bin/cswap";
+"/Applications/TcrBar.app/Contents/MacOS/tcr" = "/Applications/TcrBar.app/Contents/MacOS/tcr";
 "~/Library/Application Support/JetBrains/IntelliJIdea2024.3" = "~/Library/Application Support/JetBrains/IntelliJIdea2024.3";
 "00000000-0000-0000-0000-000000000000" = "00000000-0000-0000-0000-000000000000";
 
@@ -2176,6 +2198,10 @@
 "Stored in ~/.codexbar/config.json. Create one at console.x.ai under Settings > Management Keys; inference API keys are not accepted." = "存储在~/.codexbar/config.json中。在“设置”>“管理密钥”下的 console.x.ai 创建一个；推断 API 密钥不被接受。";
 "xai-..." = "xai-...";
 "Team ID" = "团队 ID";
+"Vercel access token" = "Vercel 访问令牌";
+"Optional. Shows your personal budget instead of team credits. Saved in CodexBar's local config file. Or set VERCEL_ACCESS_TOKEN." = "可选。显示你的个人预算，而不是团队额度。保存在 CodexBar 的本地配置文件中。或设置 VERCEL_ACCESS_TOKEN。";
+"Open Vercel tokens" = "打开 Vercel 令牌";
+"Required with a Vercel access token. Or set VERCEL_TEAM_ID." = "使用 Vercel 访问令牌时必填。或设置 VERCEL_TEAM_ID。";
 "Required. Shown in the xAI Console URL and team settings." = "必填。显示在 xAI 控制台 URL 和团队设置中。";
 "Sakana AI cost summary is not supported." = "暂不支持 Sakana AI 费用汇总。";
 "Stored in ~/.codexbar/config.json. Copy the Sakana AI console Cookie request header." = "存储在~/.codexbar/config.json中。复制 Sakana AI 控制台 Cookie 请求标头。";
@@ -2432,7 +2458,7 @@
 "spend_performance_cache_help" = "有效轮次中，缓存输入占总输入的比例。按输入 token 加权，并显示样本覆盖情况。";
 "spend_performance_metric_help" = "关于这些统计";
 "merged_icon_source_title" = "合并图标来源";
-"merged_icon_source_subtitle" = "选择折叠后的合并图标显示哪个服务提供方。";
+"merged_icon_source_subtitle" = "“最高用量”仅比较配额。对于没有配额的服务提供方，请使用“当前选择”。";
 "merged_icon_source_current_selection" = "当前选择";
 "merged_icon_source_highest_usage" = "最高用量";
 "merged_icon_source_frontmost_app" = "最前台的服务提供方应用";
@@ -2531,7 +2557,7 @@
 "Clear filters" = "清除筛选";
 "Change provider order" = "更改供应商顺序";
 "Provider sorting" = "供应商排序";
-"Only enabled providers" = "仅显示已启用";
+"Only show enabled providers" = "仅显示已启用";
 "Restore default order" = "恢复默认顺序";
 "Also restores the provider order in the menu bar. Can be undone." = "同时恢复菜单栏中的供应商顺序。可以撤销。";
 "Local Codex details; excluded from combined totals." = "本地 Codex 详情；不计入合并总计。";
@@ -2628,6 +2654,7 @@
 "Purchased credit" = "已购买额度";
 "Claude Platform exposes Console credit balance and monthly spend, not local token cost history." = "Claude Platform 显示 Console 额度余额和每月支出，而不是本地 token 成本历史记录。";
 
+"Claude config directory" = "Claude 配置目录";
 /* App-managed HTTP server */
 "http_server_title" = "HTTP 服务器";
 "http_server_enable" = "启用 HTTP 服务器";
@@ -2650,3 +2677,19 @@
 "Claude desktop app" = "Claude 桌面应用";
 "Use Claude desktop app cookies" = "使用 Claude 桌面应用的 Cookie";
 "For Web usage, follow the account signed into Claude.app instead of a browser." = "查询网页使用量时，使用 Claude.app 中登录的账户，而不是浏览器账户。";
+
+/* Munito provider credentials */
+"Key with Read account data (Admin API) permission. Or set MUNITO_API_KEY." = "具有读取账户数据（Admin API）权限的密钥。或设置 MUNITO_API_KEY。";
+"Munito reports Admin API spend and limits, not local token cost history." = "Munito 报告 Admin API 的支出和限额，而非本地 token 成本历史。";
+
+"Show all accounts in Overview" = "在概览中显示所有账户";
+
+"Expand cached account usage. The six-provider limit still applies." = "使用缓存的账户用量展开所选提供商。仍最多显示六个提供商。";
+"Edit" = "编辑";
+"Move up" = "上移";
+"Move down" = "下移";
+"Leave blank to keep the saved credential." = "留空以保留已保存的凭据。";
+
+"No personal budget configured" = "尚未配置个人预算";
+
+"monthly_daily_target_format" = "每天约 %@，可用至重置";

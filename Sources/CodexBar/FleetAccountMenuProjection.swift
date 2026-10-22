@@ -22,25 +22,14 @@ enum MenuBarUsageSource {
         self.fleetSnapshot != nil
     }
 
-    /// `fleetEnabled` is the conjunction of iCloud sync, usage snapshots, and "Show accounts from other Macs".
     static func resolve(
-        provider: UsageProvider,
         localSnapshot: UsageSnapshot?,
-        fleetSnapshots: some Sequence<AccountSnapshotSyncPayload>,
-        currentDeviceID: String,
-        fleetEnabled: Bool) -> Self
+        fleetFallback: AccountSnapshotSyncPayload?) -> Self
     {
-        guard localSnapshot == nil, fleetEnabled,
-              let fallback = FleetAccountMenuPlanner.projection(
-                  provider: provider,
-                  snapshots: fleetSnapshots,
-                  currentDeviceID: currentDeviceID,
-                  localAccountKeys: [],
-                  hasLocalUsage: false).fallback
-        else {
+        guard localSnapshot == nil, let fleetFallback else {
             return .local(localSnapshot)
         }
-        return .fleet(fallback)
+        return .fleet(fleetFallback)
     }
 }
 

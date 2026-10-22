@@ -26,9 +26,7 @@ extension StatusItemController {
     /// Presentation eligibility is wider than local refresh availability when iCloud supplies usage.
     /// Do not change `UsageStore.isEnabled`: credential-less providers must stay out of local fetch work.
     func isEnabled(_ provider: UsageProvider) -> Bool {
-        self.store.isEnabled(provider) || (
-            self.settings.isProviderEnabledCached(provider: provider, metadataByProvider: self.store.providerMetadata)
-                && self.menuBarUsageSource(for: provider).isFleet)
+        self.store.isEnabled(provider) || self.menuBarUsageSource(for: provider).isFleet
     }
 
     func menuBarEligibleProviders() -> [UsageProvider] {

@@ -41,6 +41,16 @@
 "7d" = "7d";
 "A managed Codex login is already running. Wait for it to finish before adding " = "Trwa już zarządzane logowanie Codex. Poczekaj na jego zakończenie, zanim dodasz ";
 "API key" = "Klucz API";
+
+/* Future AGI provider */
+"Secret key" = "Tajny klucz";
+"Required with the API key. Saved in the local config file. Or set FI_SECRET_KEY." = "Wymagany wraz z kluczem API. Zapisywany w lokalnym pliku konfiguracji. Możesz też ustawić FI_SECRET_KEY.";
+"Paste secret key…" = "Wklej tajny klucz…";
+"AI credits" = "Kredyty AI";
+"Gateway requests" = "Żądania bramy";
+"Future AGI cost history is not available." = "Historia kosztów Future AGI jest niedostępna.";
+"Saved in CodexBar's local config file. Or set FI_API_KEY." = "Zapisywany w lokalnym pliku konfiguracji CodexBar. Możesz też ustawić FI_API_KEY.";
+
 "API region" = "Region API";
 "API token" = "Token API";
 "API tokens" = "Tokeny API";
@@ -619,7 +629,6 @@
 
 /* Display Pane */
 "menu_bar_style_title" = "Styl paska menu";
-"menu_bar_style_subtitle" = "Sposób rysowania elementu paska menu.";
 "menu_bar_inactive_display_contrast_title" = "Popraw widoczność na nieaktywnych ekranach";
 "menu_bar_inactive_display_contrast_subtitle" = "Używa renderowania o wysokim kontraście, aby ikona i wskaźnik pozostały czytelne na innych ekranach.";
 "menu_bar_style_critters" = "Stworki";
@@ -673,6 +682,8 @@
 "overview_rows_follow_order" = "Wiersze Przeglądu zawsze podążają za kolejnością dostawców.";
 "overview_no_providers_selected" = "Nie wybrano dostawców";
 "agent_sessions_title" = "Sesje agentów";
+"agent_sessions_remote_title" = "Sesje zdalne (Tailscale / SSH)";
+"agent_sessions_remote_subtitle" = "Wykrywaj zdalne hosty i łącz się z nimi. Wyłącz, aby monitorować tylko tego Maca.";
 "agent_sessions_subtitle" = "Pokazuj w menu lokalne oraz wykryte przez SSH sesje Codex i Claude Code.";
 "agent_sessions_hosts_title" = "Dodatkowe hosty SSH";
 "agent_sessions_footer" = "Komputery Mac w twojej sieci tailnet są wykrywane automatycznie. Sesje lokalne są odświeżane co 30 sekund; hosty zdalne co 60 sekund i po otwarciu menu.";
@@ -1229,6 +1240,7 @@
 "Password" = "Hasło";
 "%@ authentication is disabled." = "Uwierzytelnianie %@ jest wyłączone.";
 "%@ cookies are disabled." = "Pliki cookie %@ są wyłączone.";
+"%@ is unavailable. Edit the widget to choose a provider." = "%@ jest niedostępny. Edytuj widżet, aby wybrać dostawcę.";
 "%@ web API access is disabled." = "Dostęp do web API %@ jest wyłączony.";
 "Disable %@ dashboard cookie usage." = "Wyłącz użycie plików cookie panelu %@.";
 "Keychain access is disabled in Advanced, so browser cookie import is unavailable." = "Dostęp do pęku kluczy jest wyłączony w Zaawansowanych, więc import plików cookie przeglądarki jest niedostępny.";
@@ -1402,6 +1414,7 @@
 /* Menu bar layout editor */
 "menu_bar_layout_title" = "Układ";
 "menu_bar_layout_footer" = "Przeciągaj elementy, aby ułożyć pasek menu. Kliknij element, aby go dodać; zaznacz umieszczony element i naciśnij Delete, aby go usunąć.";
+"menu_bar_layout_footer_requires_icon_and_percent" = "Układ ma zastosowanie tylko do stylu paska menu „%@”. Wybierz ten styl powyżej, aby go edytować.";
 "menu_bar_layout_group_identity" = "Tożsamość";
 "menu_bar_layout_group_usage" = "Zużycie";
 "menu_bar_layout_group_time" = "Czas";
@@ -1434,6 +1447,7 @@
 "menu_bar_layout_size_regular" = "Zwykły";
 "menu_bar_layout_size_large" = "Duży";
 "menu_bar_layout_monospaced_digits" = "Cyfry o stałej szerokości";
+"menu_bar_layout_show_window_labels" = "Pokaż etykiety okresów";
 "menu_bar_layout_gap" = "Odstęp";
 "menu_bar_layout_gap_tight" = "Wąski";
 "menu_bar_layout_gap_regular" = "Zwykły";
@@ -1790,6 +1804,7 @@
 "Details for %@" = "Szczegóły dotyczące %@";
 "EST. %@" = "Szacowany %@";
 "Enable Antigravity provider" = "Włącz dostawcę Antigravity";
+"Enable a provider in CodexBar → Settings → Providers." = "Włącz dostawcę w CodexBar → Ustawienia → Dostawcy.";
 "Enable account widgets in CodexBar → Settings → Menu → Widgets. Then edit this widget to choose an account." = "Włącz widżety konta w CodexBar → Ustawienia → Menu → Widżety. Następnie edytuj ten widget, aby wybrać konto.";
 "Error: %@" = "Błąd: %@";
 "Examples: alt+cmd+2, shift+right. Refresh (cmd+r), Settings (cmd+,) and Quit (cmd+q) are reserved." = "Przykłady: alt+cmd+2, shift+right. Odśwież (cmd+r), Ustawienia (cmd+,) i Zakończ (cmd+q) są zarezerwowane.";
@@ -1804,6 +1819,9 @@
 "Gateway URL" = "Brama URL";
 "Gemini CLI login is no longer supported" = "Logowanie Gemini CLI nie jest już obsługiwane";
 "Gemini CLI migration" = "Migracja Gemini CLI";
+"Gemini app" = "Aplikacja Gemini";
+"Gemini CLI" = "Gemini CLI";
+"Gemini app limits use your browser account and are separate from Gemini CLI quotas." = "Limity aplikacji Gemini dotyczą Twojego konta w przeglądarce i są niezależne od limitów Gemini CLI.";
 "Generated locally by CodexBar · Data through %@" = "Wygenerowano lokalnie przez CodexBar · Dane na %@";
 "GitHub cookies" = "GitHub cookies";
 "GitHub does not publish this value. Enter it to show a usage bar. Applies to the selected GitHub account." = "GitHub nie publikuje tej wartości. Wprowadź go, aby wyświetlić pasek użycia. Dotyczy wybranego konta GitHub.";
@@ -1907,6 +1925,7 @@
 "Paste the Cookie header from a billing-page request. It must contain sessionid." = "Wklej nagłówek Cookie z żądania strony rozliczeniowej. Musi zawierać sessionid.";
 "Paste z.ai / GLM API key…" = "Wklej klucz z.ai / GLM API…";
 "Path to the cswap executable (github.com/realiti4/claude-swap)." = "Ścieżka do pliku wykonywalnego cswap (github.com/realiti4/claude-swap).";
+"Path to the tcr executable (github.com/dhkts1/teamclaude-rs)." = "Ścieżka do pliku wykonywalnego tcr (github.com/dhkts1/teamclaude-rs).";
 "Peak %@" = "Szczyt %@";
 "Percent left" = "Pozostał procent";
 "Pick another Codex account before importing OpenAI cookies." = "Wybierz inne konto Codex przed importem OpenAI cookies.";
@@ -1961,6 +1980,8 @@
 "Select the provider to display." = "Wybierz dostawcę do wyświetlenia.";
 "Session (5-hour)" = "Sesja (5-godzinna)";
 "Session and weekly usage with credits and costs." = "Sesyjne i tygodniowe użycie Kredyty oraz koszty.";
+"Set the cswap executable path below." = "Ustaw poniżej ścieżkę do pliku wykonywalnego cswap.";
+"Set the tcr executable path below." = "Ustaw poniżej ścieżkę do pliku wykonywalnego tcr.";
 "Settings unavailable." = "Ustawienia niedostępne.";
 "Show account card when only one account is available" = "Pokaż kartę konta, gdy dostępne jest tylko jedno konto";
 "Show model-specific weekly usage in widgets" = "Pokaż w widżetach tygodniowe wykorzystanie specyficzne dla modelu";
@@ -1968,6 +1989,7 @@
 "Shows model-specific Claude quotas, such as Fable, in desktop widgets." = "Pokazuje specyficzne dla modelu Claude Limit, takie jak Fable, w widżetach pulpitu.";
 "Shows the hidden accounts" = "Pokazuje ukryte konta";
 "Shows usage and lets you switch accounts through `cswap`. Credentials stay managed by claude-swap; CodexBar never reads them." = "Pokazuje wykorzystanie i umożliwia przełączanie kont poprzez `cswap`. Poświadczeniami zarządza claude-swap; CodexBar nigdy ich nie czyta.";
+"Shows usage from `tcr`; it does not switch accounts, because tcr picks the account for each request. Credentials stay managed by tcr; CodexBar never reads them." = "Pokazuje wykorzystanie z `tcr`; nie przełącza kont, ponieważ tcr wybiera konto dla każdego żądania. Poświadczeniami zarządza tcr; CodexBar nigdy ich nie czyta.";
 "Stay Awake" = "Zachowaj czujność";
 "Stored in the CodexBar config file. Reads monthly budget and routed usage from /v1/usage." = "Przechowywane w pliku konfiguracyjnym CodexBar. Odczytuje miesięczny budżet i wykorzystanie tras z /v1/usage.";
 "Stored in ~/.codexbar/config.json. OPENAI_ADMIN_KEY is required for organization usage; legacy/user keys only get a best-effort balance fallback." = "Przechowywane w ~/.codexbar/config.json. Do użytku w organizacji wymagany jest OPENAI_ADMIN_KEY; Klucze starszego typu/użytkownika uzyskują jedynie rezerwę zastępczą w ramach najlepszego wysiłku.";
@@ -1976,6 +1998,7 @@
 "SuperGrok OAuth" = "SuperGrok OAuth";
 "Switch Account…" = "Zmień konto…";
 "Switch Claude Code account" = "Zmień konto Claude Code";
+"Claude accounts in tcr" = "Konta Claude w tcr";
 "Switch Claude Code to %@" = "Zmień Claude Code na %@";
 "Switch Provider" = "Zmień dostawcę";
 "Switch the provider shown in the widget." = "Zmień dostawcę widocznego w widżecie.";
@@ -1996,10 +2019,7 @@
 "Top models:" = "Najlepsze modele:";
 "Two quota burn-down charts in one tile." = "Dwa wykresy spalania Limit na jednym kafelku.";
 "Usage & spend come from your console.groq.com browser session automatically. An API key is optional and only adds Enterprise Prometheus metrics." = "Użycie i wydatki pochodzą automatycznie z sesji przeglądarki console.groq.com. Klucz API jest opcjonalny i dodaje tylko Enterprise Prometheus Wskaźnik.";
-"Usage data appears after a refresh." = "Dane dotyczące użytkowania pojawiają się po odświeżeniu.";
-"Usage data will appear once the app refreshes." = "Dane dotyczące użytkowania pojawią się po odświeżeniu aplikacji.";
 "Usage history chart with recent totals." = "Wykres historii użytkowania z ostatnimi sumami.";
-"Usage history will appear after a refresh." = "Historia użytkowania pojawi się po odświeżeniu.";
 "Usage limit" = "Limit użytkowania";
 "Usage limits and reset countdowns for one saved account." = "Limity wykorzystania i resetowanie odliczania dla jednego zapisanego konta.";
 "Usage widget with a provider switcher." = "Widżet użytkowania z przełącznikiem dostawców.";
@@ -2062,6 +2082,7 @@
 "sk-ant-admin..." = "sk-ant-admin...";
 "sk-or-v1-..." = "sk-or-v1-...";
 "spent" = "Limit wyczerpany";
+"tcr executable" = "Plik wykonywalny tcr";
 "under pace" = "wykorzystanie poniżej planowanego tempa";
 "us-east-1" = "us-east-1";
 "used" = "wykorzystano";
@@ -2072,6 +2093,7 @@
 "~%@ est" = "~%@ szacunkowo";
 "~%@ tracked tokens (partial)" = "~%@ Zarejestrowane tokeny (CZĘŚCIOWE)";
 "~/.local/bin/cswap" = "~/.local/bin/cswap";
+"/Applications/TcrBar.app/Contents/MacOS/tcr" = "/Applications/TcrBar.app/Contents/MacOS/tcr";
 "~/Library/Application Support/JetBrains/IntelliJIdea2024.3" = "~/Library/Application Support/JetBrains/IntelliJIdea2024.3";
 "00000000-0000-0000-0000-000000000000" = "00000000-0000-0000-0000-000000000000";
 
@@ -2184,6 +2206,10 @@
 "Stored in ~/.codexbar/config.json. Create one at console.x.ai under Settings > Management Keys; inference API keys are not accepted." = "Przechowywane w ~/.codexbar/config.json. Utwórz go pod adresem console.x.ai w obszarze Ustawienia > Klucze zarządzania; wnioskowanie Klucze API nie są akceptowane.";
 "xai-..." = "xai-...";
 "Team ID" = "Zespół ID";
+"Vercel access token" = "Token dostępu Vercel";
+"Optional. Shows your personal budget instead of team credits. Saved in CodexBar's local config file. Or set VERCEL_ACCESS_TOKEN." = "Opcjonalne. Pokazuje Twój budżet osobisty zamiast środków zespołu. Zapisywane w lokalnym pliku konfiguracji CodexBar. Możesz też ustawić VERCEL_ACCESS_TOKEN.";
+"Open Vercel tokens" = "Otwórz tokeny Vercel";
+"Required with a Vercel access token. Or set VERCEL_TEAM_ID." = "Wymagane razem z tokenem dostępu Vercel. Możesz też ustawić VERCEL_TEAM_ID.";
 "Required. Shown in the xAI Console URL and team settings." = "Wymagane. Wyświetlane w konsoli xAI URL i ustawieniach zespołu.";
 "Sakana AI cost summary is not supported." = "Podsumowanie kosztów Sakana AI nie jest obsługiwane.";
 "Stored in ~/.codexbar/config.json. Copy the Sakana AI console Cookie request header." = "Przechowywane w ~/.codexbar/config.json. Skopiuj nagłówek żądania Cookie konsoli Sakana AI.";
@@ -2442,7 +2468,7 @@
 "spend_performance_cache_help" = "Dane wejściowe z pamięci podręcznej podzielone przez wszystkie dane wejściowe z kwalifikujących się tur rozmowy. Wartość ważona liczbą tokenów wejściowych, z informacją o zakresie dostępnych pomiarów.";
 "spend_performance_metric_help" = "O tych obserwacjach";
 "merged_icon_source_title" = "Źródło połączonej ikony";
-"merged_icon_source_subtitle" = "Wybierz dostawcę wyświetlanego przez zwiniętą połączoną ikonę.";
+"merged_icon_source_subtitle" = "„Najwyższe użycie” porównuje tylko limity. Dla dostawców bez limitów użyj opcji „Bieżący wybór”.";
 "merged_icon_source_current_selection" = "Bieżący wybór";
 "merged_icon_source_highest_usage" = "Najwyższe użycie";
 "merged_icon_source_frontmost_app" = "Aplikacja dostawcy na pierwszym planie";
@@ -2541,7 +2567,7 @@
 "Clear filters" = "Wyczyść filtry";
 "Change provider order" = "Zmień kolejność dostawców";
 "Provider sorting" = "Sortowanie dostawców";
-"Only enabled providers" = "Tylko aktywni dostawcy";
+"Only show enabled providers" = "Pokaż tylko aktywnych dostawców";
 "Restore default order" = "Przywróć domyślną kolejność";
 "Also restores the provider order in the menu bar. Can be undone." = "Przywraca również kolejność dostawców na pasku menu. Można cofnąć.";
 "Local Codex details; excluded from combined totals." = "Lokalne szczegóły Codex; wyłączone z łącznych sum.";
@@ -2639,6 +2665,7 @@
 "Purchased credit" = "Kupiony kredyt";
 "Claude Platform exposes Console credit balance and monthly spend, not local token cost history." = "Claude Platform pokazuje saldo kredytów i miesięczne wydatki w Console, a nie lokalną historię kosztów tokenów.";
 
+"Claude config directory" = "Katalog konfiguracji Claude";
 /* App-managed HTTP server */
 "http_server_title" = "Serwer HTTP";
 "http_server_enable" = "Włącz serwer HTTP";
@@ -2661,3 +2688,19 @@
 "Claude desktop app" = "Aplikacja komputerowa Claude";
 "Use Claude desktop app cookies" = "Używaj plików cookie aplikacji komputerowej Claude";
 "For Web usage, follow the account signed into Claude.app instead of a browser." = "Dla użycia w sieci korzystaj z konta zalogowanego w Claude.app zamiast konta w przeglądarce.";
+
+/* Munito provider credentials */
+"Key with Read account data (Admin API) permission. Or set MUNITO_API_KEY." = "Klucz z uprawnieniem odczytu danych konta (Admin API). Albo ustaw MUNITO_API_KEY.";
+"Munito reports Admin API spend and limits, not local token cost history." = "Munito raportuje wydatki i limity Admin API, a nie lokalną historię kosztów tokenów.";
+
+"Show all accounts in Overview" = "Pokaż wszystkie konta w przeglądzie";
+
+"Expand cached account usage. The six-provider limit still applies." = "Rozwiń wybranych dostawców, korzystając z danych użycia kont w pamięci podręcznej. Nadal obowiązuje limit sześciu dostawców.";
+"Edit" = "Edytuj";
+"Move up" = "Przenieś w górę";
+"Move down" = "Przenieś w dół";
+"Leave blank to keep the saved credential." = "Pozostaw puste, aby zachować zapisane dane uwierzytelniające.";
+
+"No personal budget configured" = "Nie skonfigurowano budżetu osobistego";
+
+"monthly_daily_target_format" = "≈ %@ / dzień, aby wystarczyło do resetu";
