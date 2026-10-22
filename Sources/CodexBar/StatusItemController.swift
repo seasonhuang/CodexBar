@@ -1018,7 +1018,7 @@ extension StatusItemController {
         self.lastAppliedProviderIconRenderSignatures.removeAll()
         self.updateVisibility()
         self.updateIcons()
-        self.invalidateMenus(refreshOpenMenus: true)
+        self.invalidateMenus(refreshOpenMenus: true, deferOpenParentMenuRebuild: true)
     }
 
     func legacyDefaultItemIndex(forNewProvider provider: UsageProvider) -> Int? {
